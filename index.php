@@ -1,11 +1,14 @@
+<?php
+include './config.php';
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Emprego</title>
-    <link rel="stylesheet" href="styles.css">
-    <img>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Portal de Emprego</title>
+        <link rel="stylesheet" href="styles.css">    
     <!-- Adicionando um link para o Google Fonts para melhorar a tipografia -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>/* Reset de margens e padding */
@@ -14,7 +17,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         /* Fonte padrão */
         body {
             font-family: 'Roboto', sans-serif;
@@ -23,7 +26,7 @@
             line-height: 1.6;
             padding-top: 50px;
         }
-        
+
         /* Cabeçalho */
         header {
             background-color: #007bff;
@@ -36,33 +39,33 @@
             left: 0;
             z-index: 1000;
         }
-        
+
         header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
         }
-        
+
         header h1 {
             font-size: 2.5em;
         }
-        
+
         header h1 span {
             color: #ffcc00;
         }
-        
+
         nav a {
             color: white;
             text-decoration: none;
             margin: 0 15px;
             font-weight: 500;
         }
-        
+
         nav a:hover {
             text-decoration: underline;
         }
-        
+
         /* Seção Hero */
         .hero {
             background-image: image(img);
@@ -71,12 +74,12 @@
             text-align: center;
             background-color: #333;
         }
-        
+
         .hero h2 {
             font-size: 3em;
             margin-bottom: 20px;
         }
-        
+
         .hero p {
             font-size: 1.2em;
             margin-bottom: 30px;
@@ -84,13 +87,13 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .cta-buttons {
             display: flex;
             justify-content: center;
             gap: 20px;
         }
-        
+
         .cta-buttons .btn {
             background-color: #ffcc00;
             color: #333;
@@ -101,31 +104,31 @@
             transition: background-color 0.3s;
             text-transform: uppercase;
         }
-        
+
         .cta-buttons .btn:hover {
             background-color: #e6b800;
         }
-        
+
         /* Seção de Benefícios */
         .benefits {
             padding: 60px 20px;
             text-align: center;
             background-color: #f8f8f8;
         }
-        
+
         .benefits h2 {
             font-size: 2.5em;
             margin-bottom: 30px;
             color: #333;
         }
-        
+
         .benefit-cards {
             display: flex;
             justify-content: space-around;
             gap: 20px;
             flex-wrap: wrap;
         }
-        
+
         .benefit-cards .card {
             background-color: white;
             padding: 20px;
@@ -135,42 +138,42 @@
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         .benefit-cards .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .benefit-cards .card h3 {
             font-size: 1.8em;
             margin-bottom: 15px;
         }
-        
+
         .benefit-cards .card p {
             font-size: 1em;
             color: #555;
         }
-        
+
         /* Seção Testemunhos */
         .testimonials {
             padding: 60px 20px;
             background-color: #f0f4f8;
             text-align: center;
         }
-        
+
         .testimonials h2 {
             font-size: 2.5em;
             margin-bottom: 40px;
             color: #333;
         }
-        
+
         .testimonial-cards {
             display: flex;
             justify-content: space-around;
             gap: 30px;
             flex-wrap: wrap;
         }
-        
+
         .testimonial-cards .testimonial-card {
             background-color: white;
             padding: 30px;
@@ -181,19 +184,19 @@
             color: #555;
             transition: transform 0.3s, box-shadow 0.3s;
         }
-        
+
         .testimonial-cards .testimonial-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .testimonial-cards .testimonial-card strong {
             display: block;
             margin-top: 15px;
             font-weight: bold;
             color: #333;
         }
-        
+
         /* Rodapé */
         footer {
             background-color: #007bff;
@@ -204,34 +207,34 @@
             bottom: 0;
             width: 100%;
         }
-        
+
         footer p {
             font-size: 0.9em;
         }
-        
+
         /* Responsividade */
         @media (max-width: 768px) {
             header .container {
                 flex-direction: column;
                 text-align: center;
             }
-        
+
             .cta-buttons {
                 flex-direction: column;
                 gap: 15px;
             }
-        
+
             .benefit-cards {
                 flex-direction: column;
                 align-items: center;
             }
-        
+
             .testimonial-cards {
                 flex-direction: column;
                 align-items: center;
             }
         }
-        </style>
+    </style>
 </head>
 <body>
     <!-- Cabeçalho com título e navegação -->
@@ -239,8 +242,13 @@
         <div class="container">
             <h1>Bem-vindo ao <span>Portal de Emprego</span></h1>
             <nav>
-                <a href="login_candidato.html">Login Candidato</a>
-                <a href="login_empresa.html">Login Empresa</a>
+                <?php if (isset($_SESSION[LOGIN_USUARIO])) { ?>
+                <p><?php echo "Olá: {$_SESSION[LOGIN_USUARIO]}" ?></p>
+                <a href="logout.php">Deslogar</a>
+                <?php } else { ?>
+                    <a href="login_candidato.php">Login Candidato</a>
+                     <a href="login_empresa.html">Login Empresa</a>
+                <?php } ?>               
             </nav>
         </div>
     </header>

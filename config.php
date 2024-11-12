@@ -5,3 +5,4 @@ const DB_PASSWORD = ""; // senha do MySQL
 const DB_NAME = "siteempregos"; // nome do banco de dados
 const TIPO_USUARIO_CANDIDATO = "candidato";
 const TIPO_USUARIO_EMPRESA = "empresa";
+const LOGIN_USUARIO = "usuario";
