@@ -251,8 +251,8 @@
             <h2>Conectando Talentos às Oportunidades</h2>
             <p>Se você está procurando uma nova oportunidade ou uma empresa buscando profissionais qualificados, este é o lugar certo para você!</p>
             <div class="cta-buttons">
-                <a href="cadastrocandidatos.html" class="btn">Cadastre-se como Candidato</a>
-                <a href="login_empresa.html" class="btn">Cadastre-se como Empresa</a>
+                <a href="cadastrocandidato.php" class="btn">Cadastre-se como Candidato</a>
+                <a href="cadastroempresa.php" class="btn">Cadastre-se como Empresa</a>
             </div>
         </div>
     </section>
